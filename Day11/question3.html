@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fake Fetch Output</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        background-color: #f9f9f9;
+      }
+      #output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff3f3;
+        color: #b00020;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Item List</h2>
+    <div id="output">Waiting for response...</div>
+
+    <script>
+      const fakeFetch = (url) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (url === "https://example.com/api/itemlist") {
+              resolve({
+                status: 200,
+                message: "Success",
+                data: [
+                  { itemName: "Bread", price: 30, quantity: 10 },
+                  { itemName: "Water Bottle", price: 50, quantity: 50 },
+                  { itemName: "Dairy Milk", price: 20, quantity: 30 },
+                ],
+              });
+            } else {
+              reject({
+                status: 404,
+                message: "Items list not found.",
+              });
+            }
+          }, 2000);
+        });
+      };
+
+      // Output on the DOM should be in the format, {itemName} -- INR {price} -- {quantity}:
+      // 1. Bread -- INR 30 -- 10
+      // 2. Water Bottle -- INR 50 -- 50
+      // 3. Dairy Milk -- INR 20 -- 30
+      const displayOutput = document.querySelector("#output");
+      fakeFetch("https://example.com/api/itemlist")
+        .then((response) => {
+          if (response.status === 200) {
+            const items = response.data.map(
+              (item, index) =>
+                `${index + 1}. ${item.itemName} -- INR ${item.price} -- ${
+                  item.quantity
+                }`
+            );
+            displayOutput.textContent = items.join("\n");
+          }
+        })
+        .catch((error) => {
+          if (error.status === 200) {
+            displayOutput.textContent =
+              "We are facing high demand at the moment. Please check back later in sometime.";
+          }
+        });
+    </script>
+  </body>
+</html>
