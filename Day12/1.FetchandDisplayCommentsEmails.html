@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="output">Waiting for response...</div>
+    <script>
+      const fakeFetch = (url) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (url === "https://example.com/post/comments") {
+              resolve({
+                status: 200,
+                message: "Success",
+                data: [
+                  {
+                    email: "xyz@gmail.com",
+                    commentBody: "Well done keep it up",
+                  },
+                  {
+                    email: "hello@outlook.com",
+                    commentBody: "Good going a lot to learn from you awesome",
+                  },
+                  {
+                    email: "ram99@gmail.com",
+                    commentBody: "Anyone from Vadodara here",
+                  },
+                ],
+              });
+            } else {
+              reject({
+                status: 404,
+                message: "No Commentes found.",
+              });
+            }
+          }, 2000);
+        });
+      };
+
+      const outputDiv = document.getElementById("output");
+      fakeFetch("https://example.com/post/comments")
+        .then((res) => {
+          if (res.status === 200) {
+            const emails = res.data
+              .map((comment) => `<li>${comment.email}</li>`)
+              .join("");
+            outputDiv.innerHTML = `<ul>${emails}</ul>`;
+          }
+        })
+        .catch((err) => {
+          outputDiv.innerHTML = `<h1>${err.status} - ${err.message}</h1>`;
+        });
+    </script>
+  </body>
+</html>

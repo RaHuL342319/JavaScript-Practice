@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="output">Waiting for response...</div>
+    <script>
+      const fakeFetch = (url) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (url === "https://example.com/api/productlist") {
+              resolve({
+                status: 200,
+                message: "Success",
+                data: [
+                  { itemName: "Shoes", price: 100, quantity: 2 },
+                  { itemName: "Hat", price: 350, quantity: 1 },
+                  { itemName: "Tshirt", price: 410, quantity: 5 },
+                ],
+              });
+            } else {
+              reject({
+                status: 404,
+                message: "Items list not found.",
+              });
+            }
+          }, 2000);
+        });
+      };
+
+      const outputDiv = document.getElementById("output");
+      fakeFetch("https://example.com/api/productlist")
+        .then((res) => {
+          if (res.status === 200) {
+            const items = res.data;
+            const totalPrice = items.reduce(
+              (acc, item) => acc + item.price * item.quantity,
+              0
+            );
+            outputDiv.innerHTML = `<p>Total Price : $${totalPrice}</p>`;
+          }
+        })
+        .catch((err) => {
+          outputDiv.innerHTML = `<h1>${err.status} - ${err.message}</h1>`;
+        });
+    </script>
+  </body>
+</html>
