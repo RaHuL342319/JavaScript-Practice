@@ -1,0 +1,11 @@
+const checkPrime = (num) => {
+  // check if num is prime
+  if (num <= 1) return false;
+  for (let i = 2; i < Math.sqrt(num); i++) {
+    if (num % i == 0) return false;
+  }
+  return true;
+};
+
+console.log(checkPrime(10));
+console.log(checkPrime(11));
