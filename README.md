@@ -15,6 +15,9 @@ A collection of JavaScript practice problems and solutions, organized by day and
 - [Day 7](./Day7/) – Advanced Array Methods
 - [Day 8](./Day8/) – ES6 Features
 - [Day 9](./Day9/) – Practice Problems, Reduce, Counting
+- [Day 10](./Day10/) – Async Javascript
+- [Day 11](./Day11/) – Async Javascript
+- [Day 12](./Day12/) – Async Javascript
 
 ---
 
