@@ -18,6 +18,7 @@ A collection of JavaScript practice problems and solutions, organized by day and
 - [Day 10](./Day10/) – Async Javascript
 - [Day 11](./Day11/) – Async Javascript
 - [Day 12](./Day12/) – Async Javascript
+- [Day 13](./Day13/) – Hoisting question, Basics JS
 
 ---
 
